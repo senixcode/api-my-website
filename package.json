@@ -23,7 +23,6 @@
   "dependencies": {
     "@types/lowdb": "^1.0.9",
     "apollo-server-express": "^2.21.1",
-    "class-validator": "^0.13.1",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "lowdb": "^1.0.0",
