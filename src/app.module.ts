@@ -3,6 +3,7 @@ import {GraphQLModule} from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RouteModule } from './route/route.module';
 import { AboutmeModule } from './aboutme/aboutme.module';
+import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AboutmeModule } from './aboutme/aboutme.module';
     }),
     RouteModule,
     AboutmeModule,
+    ProjectModule,
   ],
   controllers: [],
   providers: [],
