@@ -6,7 +6,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Aboutme {
   @PrimaryGeneratedColumn()
   @Field((type) => Int)
-  id: number; 
+  id: number;
 
   @Column()
   @Field()
@@ -14,5 +14,5 @@ export class Aboutme {
 
   @Column()
   @Field()
-  language:string;
+  language: string;
 }

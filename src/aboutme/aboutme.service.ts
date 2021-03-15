@@ -8,30 +8,29 @@ import { Aboutme } from './entities/aboutme.entity';
 @Injectable()
 export class AboutmeService {
   constructor(
-    @InjectRepository(Aboutme) private aboutmeRepository: Repository<Aboutme> 
-  ){}
+    @InjectRepository(Aboutme) private aboutmeRepository: Repository<Aboutme>,
+  ) {}
 
-  create(createAboutmeInput: CreateAboutmeInput):Promise<Aboutme> {
+  create(createAboutmeInput: CreateAboutmeInput): Promise<Aboutme> {
     const newRecord = this.aboutmeRepository.create(createAboutmeInput);
     return this.aboutmeRepository.save(newRecord);
   }
 
   findAll(): Promise<Aboutme[]> {
-    return this.aboutmeRepository.find()
+    return this.aboutmeRepository.find();
   }
 
-  findOne(id: number):Promise<Aboutme> {
+  findOne(id: number): Promise<Aboutme> {
     return this.aboutmeRepository.findOneOrFail(id);
   }
 
   async update(updateAboutmeInput: UpdateAboutmeInput) {
     return await this.aboutmeRepository.save(updateAboutmeInput);
-    
   }
 
-  async remove(id: number):Promise<Aboutme>{
+  async remove(id: number): Promise<Aboutme> {
     const aboutme = await this.findOne(id);
-     await this.aboutmeRepository.delete(id)
-    return aboutme
+    await this.aboutmeRepository.delete(id);
+    return aboutme;
   }
 }

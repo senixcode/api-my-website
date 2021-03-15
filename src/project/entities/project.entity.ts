@@ -20,16 +20,16 @@ export class Project {
   @Field()
   summary: string;
 
-  @Column({nullable:true})
-  @Field({nullable:true})
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   description?: string;
 
-  @Column({nullable:true})
-  @Field({nullable:true})
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   topics?: string;
 
-  @Column({nullable:true})
-  @Field({nullable:true})
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   links?: string;
 
   @Column()

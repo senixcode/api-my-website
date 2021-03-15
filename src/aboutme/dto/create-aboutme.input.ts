@@ -1,4 +1,4 @@
-import { InputType,  Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateAboutmeInput {
@@ -6,5 +6,5 @@ export class CreateAboutmeInput {
   name: string;
 
   @Field()
-  language:string
+  language: string;
 }

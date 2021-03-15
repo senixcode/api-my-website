@@ -2,7 +2,6 @@ import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateProjectInput {
-
   @Field()
   title: string;
 
@@ -12,13 +11,13 @@ export class CreateProjectInput {
   @Field()
   summary: string;
 
-  @Field({nullable:true})
+  @Field({ nullable: true })
   description?: string;
 
-  @Field({nullable:true})
+  @Field({ nullable: true })
   topics?: string;
 
-  @Field({nullable:true})
+  @Field({ nullable: true })
   links?: string;
 
   @Field()

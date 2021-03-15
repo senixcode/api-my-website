@@ -9,7 +9,9 @@ export class AboutmeResolver {
   constructor(private readonly aboutmeService: AboutmeService) {}
 
   @Mutation(() => Aboutme)
-  createAboutme(@Args('createAboutmeInput') createAboutmeInput: CreateAboutmeInput) {
+  createAboutme(
+    @Args('createAboutmeInput') createAboutmeInput: CreateAboutmeInput,
+  ) {
     return this.aboutmeService.create(createAboutmeInput);
   }
 
@@ -24,7 +26,9 @@ export class AboutmeResolver {
   }
 
   @Mutation(() => Aboutme)
-  updateAboutme(@Args('updateAboutmeInput') updateAboutmeInput: UpdateAboutmeInput) {
+  updateAboutme(
+    @Args('updateAboutmeInput') updateAboutmeInput: UpdateAboutmeInput,
+  ) {
     return this.aboutmeService.update(updateAboutmeInput);
   }
 
