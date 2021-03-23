@@ -3,6 +3,7 @@ import { ProjectService } from './project.service';
 import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
+import { Language } from 'src/Language';
 
 @Resolver(() => Project)
 export class ProjectResolver {
@@ -23,6 +24,11 @@ export class ProjectResolver {
   @Query(() => Project, { name: 'project' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.projectService.findOne(id);
+  }
+
+  @Query(() => [Project], { name: 'projectFinByLanguage' })
+  findByLanguage(@Args('language', { type: () => Language }) language: Language){
+     return this.projectService.findByLanguage(language);
   }
 
   @Mutation(() => Project)

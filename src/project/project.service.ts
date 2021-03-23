@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Language } from 'src/Language';
+import { Equal, Repository } from 'typeorm';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
 import { Project } from './entities/project.entity';
@@ -22,6 +23,12 @@ export class ProjectService {
 
   findOne(id: number): Promise<Project> {
     return this.projectRepository.findOneOrFail(id);
+  }
+  
+  findByLanguage(language: Language):Promise<Project[]>{
+      return this.projectRepository.find({
+      language: Equal(language),
+    });
   }
 
   async update(

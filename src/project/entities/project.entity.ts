@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Language } from 'src/Language';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -33,6 +34,6 @@ export class Project {
   links?: string;
 
   @Column()
-  @Field()
-  language: string;
+  @Field(type => Language)
+  language: Language;
 }

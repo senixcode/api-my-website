@@ -1,5 +1,6 @@
 import { CreateProjectInput } from './create-project.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { Language } from 'src/Language';
 
 @InputType()
 export class UpdateProjectInput extends PartialType(CreateProjectInput) {
@@ -24,6 +25,6 @@ export class UpdateProjectInput extends PartialType(CreateProjectInput) {
   @Field({ nullable: true })
   links?: string;
 
-  @Field({ nullable: true })
-  language?: string;
+  @Field(type => Language,{ nullable: true })
+  language?: Language;
 }
