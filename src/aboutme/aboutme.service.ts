@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Language } from 'src/Language';
+import { Equal, Repository } from 'typeorm';
 import { CreateAboutmeInput } from './dto/create-aboutme.input';
 import { UpdateAboutmeInput } from './dto/update-aboutme.input';
 import { Aboutme } from './entities/aboutme.entity';
@@ -20,8 +21,10 @@ export class AboutmeService {
     return this.aboutmeRepository.find();
   }
 
-  findOne(id: number): Promise<Aboutme> {
-    return this.aboutmeRepository.findOneOrFail(id);
+  findOne(language: Language): Promise<Aboutme[]> {
+    return this.aboutmeRepository.find({
+      language: Equal(language),
+    });
   }
 
   async update(updateAboutmeInput: UpdateAboutmeInput) {
@@ -29,7 +32,7 @@ export class AboutmeService {
   }
 
   async remove(id: number): Promise<Aboutme> {
-    const aboutme = await this.findOne(id);
+    const aboutme = await this.aboutmeRepository.findOneOrFail(id);
     await this.aboutmeRepository.delete(id);
     return aboutme;
   }

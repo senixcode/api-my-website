@@ -3,6 +3,7 @@ import { AboutmeService } from './aboutme.service';
 import { Aboutme } from './entities/aboutme.entity';
 import { CreateAboutmeInput } from './dto/create-aboutme.input';
 import { UpdateAboutmeInput } from './dto/update-aboutme.input';
+import { Language } from 'src/Language';
 
 @Resolver(() => Aboutme)
 export class AboutmeResolver {
@@ -20,9 +21,9 @@ export class AboutmeResolver {
     return this.aboutmeService.findAll();
   }
 
-  @Query(() => Aboutme, { name: 'aboutMe' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.aboutmeService.findOne(id);
+  @Query(() => [Aboutme], { name: 'aboutMe' })
+  findOne(@Args('language', { type: () => Language }) language: Language) {
+    return this.aboutmeService.findOne(language);
   }
 
   @Mutation(() => Aboutme)

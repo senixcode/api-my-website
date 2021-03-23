@@ -1,5 +1,6 @@
 import { CreateAboutmeInput } from './create-aboutme.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { Language } from 'src/Language';
 
 @InputType()
 export class UpdateAboutmeInput extends PartialType(CreateAboutmeInput) {
@@ -9,6 +10,6 @@ export class UpdateAboutmeInput extends PartialType(CreateAboutmeInput) {
   @Field({ nullable: true })
   name?: string;
 
-  @Field({ nullable: true })
-  language?: string;
+  @Field(type => Language,{ nullable: true })
+  language?: Language;
 }
