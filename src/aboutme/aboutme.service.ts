@@ -20,8 +20,11 @@ export class AboutmeService {
   findAll(): Promise<Aboutme[]> {
     return this.aboutmeRepository.find();
   }
+  findOne(id: number): Promise<Aboutme> {
+    return this.aboutmeRepository.findOneOrFail(id);
+  }
 
-  findOne(language: Language): Promise<Aboutme[]> {
+  findByLanguage(language: Language): Promise<Aboutme[]> {
     return this.aboutmeRepository.find({
       language: Equal(language),
     });

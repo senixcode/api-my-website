@@ -21,9 +21,16 @@ export class AboutmeResolver {
     return this.aboutmeService.findAll();
   }
 
-  @Query(() => [Aboutme], { name: 'aboutMe' })
-  findOne(@Args('language', { type: () => Language }) language: Language) {
-    return this.aboutmeService.findOne(language);
+  @Query(() => Aboutme, { name: 'aboutMe' })
+  findOne(@Args('id', { type: () => Int }) id: number) {
+    return this.aboutmeService.findOne(id);
+  }
+
+  @Query(() => [Aboutme], { name: 'aboutMeFindByLanguage' })
+  findByLanguage(
+    @Args('language', { type: () => Language }) language: Language,
+  ) {
+    return this.aboutmeService.findByLanguage(language);
   }
 
   @Mutation(() => Aboutme)
