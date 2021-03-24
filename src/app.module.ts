@@ -5,6 +5,7 @@ import { RouteModule } from './route/route.module';
 import { AboutmeModule } from './aboutme/aboutme.module';
 import { ProjectModule } from './project/project.module';
 import { TopicsModule } from './topics/topics.module';
+import { LinksModule } from './links/links.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { TopicsModule } from './topics/topics.module';
     AboutmeModule,
     ProjectModule,
     TopicsModule,
+    LinksModule,
   ],
   controllers: [],
   providers: [],
