@@ -25,6 +25,6 @@ export class UpdateProjectInput extends PartialType(CreateProjectInput) {
   @Field({ nullable: true })
   links?: string;
 
-  @Field(type => Language,{ nullable: true })
+  @Field((type) => Language, { nullable: true })
   language?: Language;
 }

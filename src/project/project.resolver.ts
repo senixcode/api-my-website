@@ -4,10 +4,14 @@ import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
 import { Language } from 'src/Language';
+import { TopicsService } from 'src/topics/topics.service';
 
 @Resolver(() => Project)
 export class ProjectResolver {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(
+    private readonly projectService: ProjectService,
+    private topicsService: TopicsService,
+  ) {}
 
   @Mutation(() => Project)
   createProject(
@@ -17,18 +21,24 @@ export class ProjectResolver {
   }
 
   @Query(() => [Project], { name: 'projects' })
-  findAll() {
-    return this.projectService.findAll();
+  async findAll() {
+    let projects = await this.projectService.findAll();
+    projects = await this.projectService.parseTopics(projects)
+    return projects;
   }
 
   @Query(() => Project, { name: 'project' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.projectService.findOne(id);
+  async findOne(@Args('id', { type: () => Int }) id: number) {
+    let project = await this.projectService.findOne(id);
+    project = await this.projectService.parseTopic(project)
+    return project;
   }
 
   @Query(() => [Project], { name: 'projectFinByLanguage' })
-  findByLanguage(@Args('language', { type: () => Language }) language: Language){
-     return this.projectService.findByLanguage(language);
+  findByLanguage(
+    @Args('language', { type: () => Language }) language: Language,
+  ) {
+    return this.projectService.findByLanguage(language);
   }
 
   @Mutation(() => Project)

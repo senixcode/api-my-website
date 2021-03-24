@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Language } from 'src/Language';
+import { Topic } from 'src/topics/entities/topic.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -28,6 +29,10 @@ export class Project {
   @Column({ nullable: true })
   @Field({ nullable: true })
   topics?: string;
+
+
+  @Field(type => [Topic],{ nullable: "itemsAndList" })
+   topicsParse?: Topic[];
 
   @Column({ nullable: true })
   @Field({ nullable: true })
