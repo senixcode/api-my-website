@@ -1,10 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Language } from 'src/Language';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
-export class Aboutme {
+export class Link {
   @PrimaryGeneratedColumn()
   @Field((type) => Int)
   id: number;
@@ -14,6 +13,10 @@ export class Aboutme {
   name: string;
 
   @Column()
-  @Field(type => Language)
-  language: Language;
+  @Field()
+  href: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  icon?: string;
 }

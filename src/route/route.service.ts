@@ -10,7 +10,7 @@ export class RouteService {
   constructor(
     @InjectRepository(Route) private routesRepository: Repository<Route>,
   ) {}
- 
+
   create(createRouteInput: createRouteInput): Promise<Route> {
     const newRoute = this.routesRepository.create(createRouteInput);
     return this.routesRepository.save(newRoute);
@@ -23,15 +23,14 @@ export class RouteService {
   findOne(id: number): Promise<Route> {
     return this.routesRepository.findOneOrFail(id);
   }
-  
-   async update(updateRouteInput: UpdateRouteInput) {
+
+  async update(updateRouteInput: UpdateRouteInput) {
     return await this.routesRepository.save(updateRouteInput);
-    
   }
 
-  async remove(id: number):Promise<Route>{
+  async remove(id: number): Promise<Route> {
     const aboutme = await this.findOne(id);
-     await this.routesRepository.delete(id)
-    return aboutme
+    await this.routesRepository.delete(id);
+    return aboutme;
   }
 }

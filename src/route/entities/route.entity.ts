@@ -19,7 +19,7 @@ export class Route {
   @Column({ nullable: true })
   @Field({ nullable: true })
   description?: string;
- 
+
   @Column()
   @Field()
   language: string;

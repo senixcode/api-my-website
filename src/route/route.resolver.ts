@@ -13,19 +13,21 @@ export class RouteResolver {
   ): Promise<Route> {
     return this.routeService.create(createRouteInput);
   }
-  
-  @Query(() => [Route],{name:'route'})
+
+  @Query(() => [Route], { name: 'route' })
   findAll(): Promise<Route[]> {
     return this.routeService.findAll();
   }
 
-  @Query(() => Route,{name:'routes'})
+  @Query(() => Route, { name: 'routes' })
   findOne(@Args('id', { type: () => Int }) id: number): Promise<Route> {
     return this.routeService.findOne(id);
   }
 
-    @Mutation(() => Route)
-  updateAboutme(@Args('updateAboutmeInput') updateRouteInput: UpdateRouteInput) {
+  @Mutation(() => Route)
+  updateAboutme(
+    @Args('updateAboutmeInput') updateRouteInput: UpdateRouteInput,
+  ) {
     return this.routeService.update(updateRouteInput);
   }
 
@@ -33,5 +35,4 @@ export class RouteResolver {
   removeAboutme(@Args('id', { type: () => Int }) id: number) {
     return this.routeService.remove(id);
   }
-
 }
