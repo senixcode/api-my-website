@@ -1,6 +1,4 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { truncateSync } from 'node:fs';
-
 @InputType()
 export class CreateLinkInput {
   @Field()

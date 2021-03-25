@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Language } from 'src/Language';
+import { LinksService } from 'src/links/links.service';
 import { TopicsService } from 'src/topics/topics.service';
 import { Equal, Repository } from 'typeorm';
 import { CreateProjectInput } from './dto/create-project.input';
@@ -12,6 +13,7 @@ export class ProjectService {
   constructor(
     @InjectRepository(Project) private projectRepository: Repository<Project>,
     private topicsService: TopicsService,
+    private linkService: LinksService,
   ) {}
 
   create(createProjectInput: CreateProjectInput): Promise<Project> {
@@ -32,12 +34,32 @@ export class ProjectService {
     );
   }
 
-  findAll(): Promise<Project[]> {
-    return this.projectRepository.find();
+  async parseLink(project: Project): Promise<Project> {
+    const idsTopics = JSON.parse(project.links);
+    project.linksParse = await this.linkService.parseLinks(idsTopics);
+    return project;
   }
 
-  findOne(id: number): Promise<Project> {
-    return this.projectRepository.findOneOrFail(id);
+  async parseLinks(projects: Project[]): Promise<Project[]> {
+    return await Promise.all(
+      projects.map(async (project: Project) => {
+        return await this.parseLink(project);
+      }),
+    );
+  }
+
+  async findAll(): Promise<Project[]> {
+    let projects = await this.projectRepository.find();
+    projects = await this.parseTopics(projects);
+    projects = await this.parseLinks(projects);
+    return projects;
+  }
+
+  async findOne(id: number): Promise<Project> {
+    let project = await this.projectRepository.findOneOrFail(id);
+    project = await this.parseTopic(project);
+    project = await this.parseLink(project);
+    return project;
   }
 
   findByLanguage(language: Language): Promise<Project[]> {

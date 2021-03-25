@@ -4,14 +4,10 @@ import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
 import { Language } from 'src/Language';
-import { TopicsService } from 'src/topics/topics.service';
 
 @Resolver(() => Project)
 export class ProjectResolver {
-  constructor(
-    private readonly projectService: ProjectService,
-    private topicsService: TopicsService,
-  ) {}
+  constructor(private readonly projectService: ProjectService) {}
 
   @Mutation(() => Project)
   createProject(
@@ -22,16 +18,12 @@ export class ProjectResolver {
 
   @Query(() => [Project], { name: 'projects' })
   async findAll() {
-    let projects = await this.projectService.findAll();
-    projects = await this.projectService.parseTopics(projects)
-    return projects;
+    return await this.projectService.findAll();
   }
 
   @Query(() => Project, { name: 'project' })
   async findOne(@Args('id', { type: () => Int }) id: number) {
-    let project = await this.projectService.findOne(id);
-    project = await this.projectService.parseTopic(project)
-    return project;
+    return await this.projectService.findOne(id);
   }
 
   @Query(() => [Project], { name: 'projectFinByLanguage' })
