@@ -1,3 +1,4 @@
+import { Language } from 'src/Language';
 import { Repository } from 'typeorm';
 import { createRouteInput } from './dto/create-route.input';
 import { UpdateRouteInput } from './dto/update-route.input';
@@ -8,6 +9,7 @@ export declare class RouteService {
     create(createRouteInput: createRouteInput): Promise<Route>;
     findAll(): Promise<Route[]>;
     findOne(id: number): Promise<Route>;
+    findByLanguage(language: Language): Promise<Route[]>;
     update(updateRouteInput: UpdateRouteInput): Promise<UpdateRouteInput & Route>;
     remove(id: number): Promise<Route>;
 }

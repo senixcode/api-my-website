@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Route = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const Language_1 = require("../../Language");
 const typeorm_1 = require("typeorm");
 let Route = class Route {
 };
@@ -36,7 +37,7 @@ __decorate([
 ], Route.prototype, "description", void 0);
 __decorate([
     typeorm_1.Column(),
-    graphql_1.Field(),
+    graphql_1.Field(type => Language_1.Language),
     __metadata("design:type", String)
 ], Route.prototype, "language", void 0);
 Route = __decorate([

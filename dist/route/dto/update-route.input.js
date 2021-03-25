@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateRouteInput = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const Language_1 = require("../../Language");
 let UpdateRouteInput = class UpdateRouteInput {
 };
 __decorate([
@@ -30,7 +31,7 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateRouteInput.prototype, "description", void 0);
 __decorate([
-    graphql_1.Field({ nullable: true }),
+    graphql_1.Field(type => Language_1.Language, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateRouteInput.prototype, "language", void 0);
 UpdateRouteInput = __decorate([

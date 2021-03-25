@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RouteService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const Language_1 = require("../Language");
 const typeorm_2 = require("typeorm");
 const route_entity_1 = require("./entities/route.entity");
 let RouteService = class RouteService {
@@ -30,6 +31,11 @@ let RouteService = class RouteService {
     }
     findOne(id) {
         return this.routesRepository.findOneOrFail(id);
+    }
+    findByLanguage(language) {
+        return this.routesRepository.find({
+            language: typeorm_2.Equal(language),
+        });
     }
     async update(updateRouteInput) {
         return await this.routesRepository.save(updateRouteInput);

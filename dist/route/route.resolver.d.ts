@@ -1,3 +1,4 @@
+import { Language } from 'src/Language';
 import { createRouteInput } from './dto/create-route.input';
 import { UpdateRouteInput } from './dto/update-route.input';
 import { Route } from './entities/route.entity';
@@ -8,6 +9,7 @@ export declare class RouteResolver {
     createRoute(createRouteInput: createRouteInput): Promise<Route>;
     findAll(): Promise<Route[]>;
     findOne(id: number): Promise<Route>;
+    findByLanguage(language: Language): Promise<Route[]>;
     updateAboutme(updateRouteInput: UpdateRouteInput): Promise<UpdateRouteInput & Route>;
     removeAboutme(id: number): Promise<Route>;
 }
