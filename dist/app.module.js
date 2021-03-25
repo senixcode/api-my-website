@@ -15,19 +15,21 @@ const aboutme_module_1 = require("./aboutme/aboutme.module");
 const project_module_1 = require("./project/project.module");
 const topics_module_1 = require("./topics/topics.module");
 const links_module_1 = require("./links/links.module");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
             graphql_1.GraphQLModule.forRoot({
-                autoSchemaFile: true,
+                autoSchemaFile: path_1.join(process.cwd(), 'src/schema.gql'),
+                playground: true
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'sqlite',
                 database: 'db.sqlite3',
                 entities: ['dist/**/*.entity{.ts,.js}'],
-                synchronize: true,
+                synchronize: false,
             }),
             route_module_1.RouteModule,
             aboutme_module_1.AboutmeModule,

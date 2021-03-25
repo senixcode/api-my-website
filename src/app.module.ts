@@ -6,17 +6,18 @@ import { AboutmeModule } from './aboutme/aboutme.module';
 import { ProjectModule } from './project/project.module';
 import { TopicsModule } from './topics/topics.module';
 import { LinksModule } from './links/links.module';
-
+import { join } from 'path';
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      autoSchemaFile: true,
+  autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: true
     }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite3',
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
     }),
     RouteModule,
     AboutmeModule,
