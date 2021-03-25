@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Language } from 'src/Language';
+import { Equal, Repository } from 'typeorm';
 import { createRouteInput } from './dto/create-route.input';
 import { UpdateRouteInput } from './dto/update-route.input';
 import { Route } from './entities/route.entity';
@@ -24,6 +25,12 @@ export class RouteService {
     return this.routesRepository.findOneOrFail(id);
   }
 
+  findByLanguage(language: Language): Promise<Route[]> {
+    return this.routesRepository.find({
+      language: Equal(language),
+    });
+  }
+  
   async update(updateRouteInput: UpdateRouteInput) {
     return await this.routesRepository.save(updateRouteInput);
   }

@@ -7,12 +7,6 @@ type Route {
   path: String!
   title: String!
   description: String
-  language: String!
-}
-
-type Aboutme {
-  id: Int!
-  name: String!
   language: Language!
 }
 
@@ -20,6 +14,12 @@ type Aboutme {
 enum Language {
   EN
   ES
+}
+
+type Aboutme {
+  id: Int!
+  name: String!
+  language: Language!
 }
 
 type Link {
@@ -48,8 +48,9 @@ type Project {
 }
 
 type Query {
-  route: [Route!]!
-  routes(id: Int!): Route!
+  routes: [Route!]!
+  route(id: Int!): Route!
+  routeFindByLanguage(language: Language!): [Route!]!
   allAboutMe: [Aboutme!]!
   aboutMe(id: Int!): Aboutme!
   aboutMeFindByLanguage(language: Language!): [Aboutme!]!
@@ -82,7 +83,7 @@ input createRouteInput {
   path: String!
   title: String!
   description: String
-  language: String!
+  language: Language!
 }
 
 input UpdateAboutmeInput {

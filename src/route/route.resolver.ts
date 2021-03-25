@@ -1,4 +1,5 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Language } from 'src/Language';
 import { createRouteInput } from './dto/create-route.input';
 import { UpdateRouteInput } from './dto/update-route.input';
 import { Route } from './entities/route.entity';
@@ -14,16 +15,23 @@ export class RouteResolver {
     return this.routeService.create(createRouteInput);
   }
 
-  @Query(() => [Route], { name: 'route' })
+  @Query(() => [Route], { name: 'routes' })
   findAll(): Promise<Route[]> {
     return this.routeService.findAll();
   }
 
-  @Query(() => Route, { name: 'routes' })
+  @Query(() => Route, { name: 'route' })
   findOne(@Args('id', { type: () => Int }) id: number): Promise<Route> {
     return this.routeService.findOne(id);
   }
 
+  @Query(() => [Route], { name: 'routeFindByLanguage' })
+  findByLanguage(
+    @Args('language', { type: () => Language }) language: Language,
+  ) {
+    return this.routeService.findByLanguage(language);
+  }
+  
   @Mutation(() => Route)
   updateAboutme(
     @Args('updateAboutmeInput') updateRouteInput: UpdateRouteInput,
