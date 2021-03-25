@@ -1,0 +1,20 @@
+import { Field, InputType } from '@nestjs/graphql';
+import { Language } from 'src/Language';
+
+@InputType()
+export class createRouteInput {
+  @Field()
+  path: string;
+
+  // @IsAlpha()
+  @Field()
+  title: string;
+
+  // @IsAlpha()
+  @Field({ nullable: true })
+  description?: string;
+
+  // @IsAlpha()
+  @Field(type => Language)
+  language: Language;
+}
