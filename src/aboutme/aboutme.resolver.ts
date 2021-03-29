@@ -4,6 +4,7 @@ import { Aboutme } from './entities/aboutme.entity';
 import { CreateAboutmeInput } from './dto/create-aboutme.input';
 import { UpdateAboutmeInput } from './dto/update-aboutme.input';
 import { Language } from 'src/Language';
+import { truncate } from 'node:fs';
 
 @Resolver(() => Aboutme)
 export class AboutmeResolver {
@@ -28,9 +29,11 @@ export class AboutmeResolver {
 
   @Query(() => [Aboutme], { name: 'aboutMeFindByLanguage' })
   findByLanguage(
-    @Args('language', { type: () => Language }) language: Language,
+    @Args('language', { type: () => Language, nullable: true })
+    language?: Language,
+    @Args('all', { type: () => Boolean, nullable: true }) all?: boolean,
   ) {
-    return this.aboutmeService.findByLanguage(language);
+    return this.aboutmeService.findByLanguage(language, all);
   }
 
   @Mutation(() => Aboutme)

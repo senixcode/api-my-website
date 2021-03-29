@@ -28,9 +28,11 @@ export class ProjectResolver {
 
   @Query(() => [Project], { name: 'projectFinByLanguage' })
   findByLanguage(
-    @Args('language', { type: () => Language }) language: Language,
+    @Args('language', { type: () => Language, nullable: true })
+    language?: Language,
+    @Args('all', { type: () => Boolean, nullable: true }) all?: boolean,
   ) {
-    return this.projectService.findByLanguage(language);
+    return this.projectService.findByLanguage(language, all);
   }
 
   @Mutation(() => Project)

@@ -24,10 +24,13 @@ export class AboutmeService {
     return this.aboutmeRepository.findOneOrFail(id);
   }
 
-  findByLanguage(language: Language): Promise<Aboutme[]> {
-    return this.aboutmeRepository.find({
-      language: Equal(language),
-    });
+  findByLanguage(language?: Language, all: boolean = false): Promise<Aboutme[]> {
+    if(language){
+      return this.aboutmeRepository.find({
+        language: Equal(language)
+      });
+    }
+    if(all) return this.findAll()
   }
 
   async update(updateAboutmeInput: UpdateAboutmeInput) {

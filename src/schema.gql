@@ -51,13 +51,13 @@ type Project {
 type Query {
   routes: [Route!]!
   route(id: Int!): Route!
-  routeFindByLanguage(language: Language!): [Route!]!
+  routeFindByLanguage(all: Boolean, language: Language): [Route!]!
   allAboutMe: [Aboutme!]!
   aboutMe(id: Int!): Aboutme!
-  aboutMeFindByLanguage(language: Language!): [Aboutme!]!
+  aboutMeFindByLanguage(all: Boolean, language: Language): [Aboutme!]!
   projects: [Project!]!
   project(id: Int!): Project!
-  projectFinByLanguage(language: Language!): [Project!]!
+  projectFinByLanguage(all: Boolean, language: Language): [Project!]!
   topics: [Topic!]!
   topic(id: Int!): Topic!
   links: [Link!]!

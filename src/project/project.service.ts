@@ -50,7 +50,7 @@ export class ProjectService {
 
   async parseDescription(project: Project): Promise<Project> {
     const parseDescriptions: string[] = project.description.split('.');
-    parseDescriptions.pop()
+    parseDescriptions.pop();
     project.descriptionParse = parseDescriptions;
     return project;
   }
@@ -79,14 +79,20 @@ export class ProjectService {
     return project;
   }
 
-  async findByLanguage(language: Language): Promise<Project[]> {
-    let projects = await this.projectRepository.find({
-      language: Equal(language),
-    });
-    projects = await this.parseTopics(projects);
-    projects = await this.parseLinks(projects);
-    projects = await this.parseDescriptions(projects);
-    return projects;
+  async findByLanguage(
+    language?: Language,
+    all: boolean = false,
+  ): Promise<Project[]> {
+    if (language) {
+      let projects = await this.projectRepository.find({
+        language: Equal(language),
+      });
+      projects = await this.parseTopics(projects);
+      projects = await this.parseLinks(projects);
+      projects = await this.parseDescriptions(projects);
+      return projects;
+    }
+    if (all) return this.findAll();
   }
 
   async update(

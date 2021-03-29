@@ -25,12 +25,15 @@ export class RouteService {
     return this.routesRepository.findOneOrFail(id);
   }
 
-  findByLanguage(language: Language): Promise<Route[]> {
-    return this.routesRepository.find({
-      language: Equal(language),
-    });
+  findByLanguage(language?: Language, all: boolean = false): Promise<Route[]> {
+    if (language) {
+      return this.routesRepository.find({
+        language: Equal(language),
+      });
+    }
+    if (all) return this.findAll();
   }
-  
+
   async update(updateRouteInput: UpdateRouteInput) {
     return await this.routesRepository.save(updateRouteInput);
   }

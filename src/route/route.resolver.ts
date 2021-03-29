@@ -27,11 +27,13 @@ export class RouteResolver {
 
   @Query(() => [Route], { name: 'routeFindByLanguage' })
   findByLanguage(
-    @Args('language', { type: () => Language }) language: Language,
+    @Args('language', { type: () => Language, nullable: true })
+    language?: Language,
+    @Args('all', { type: () => Boolean, nullable: true }) all?: boolean,
   ) {
-    return this.routeService.findByLanguage(language);
+    return this.routeService.findByLanguage(language, all);
   }
-  
+
   @Mutation(() => Route)
   updateAboutme(
     @Args('updateAboutmeInput') updateRouteInput: UpdateRouteInput,
