@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Language } from 'src/Language';
 import { Equal, Repository } from 'typeorm';
-import { createRouteInput } from './dto/create-route.input';
+import { CreateRouteInput } from './dto/create-route.input';
 import { UpdateRouteInput } from './dto/update-route.input';
 import { Route } from './entities/route.entity';
 
@@ -12,7 +12,7 @@ export class RouteService {
     @InjectRepository(Route) private routesRepository: Repository<Route>,
   ) {}
 
-  create(createRouteInput: createRouteInput): Promise<Route> {
+  create(createRouteInput: CreateRouteInput): Promise<Route> {
     const newRoute = this.routesRepository.create(createRouteInput);
     return this.routesRepository.save(newRoute);
   }

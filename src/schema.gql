@@ -65,10 +65,12 @@ type Query {
 }
 
 type Mutation {
-  createRoute(createRouteInput: createRouteInput!): Route!
+  createRoute(createRouteInput: CreateRouteInput!): Route!
+  updateRoute(updateRouteInput: UpdateRouteInput!): Route!
+  removeRoute(id: Int!): Route!
+  createAboutme(createAboutmeInput: CreateAboutmeInput!): Aboutme!
   updateAboutme(updateAboutmeInput: UpdateAboutmeInput!): Aboutme!
   removeAboutme(id: Int!): Aboutme!
-  createAboutme(createAboutmeInput: CreateAboutmeInput!): Aboutme!
   createProject(createProjectInput: CreateProjectInput!): Project!
   updateProject(updateProjectInput: UpdateProjectInput!): Project!
   removeProject(id: Int!): Project!
@@ -80,10 +82,23 @@ type Mutation {
   removeLink(id: Int!): Link!
 }
 
-input createRouteInput {
+input CreateRouteInput {
   path: String!
   title: String!
   description: String
+  language: Language!
+}
+
+input UpdateRouteInput {
+  id: Int!
+  path: String
+  title: String
+  description: String
+  language: Language
+}
+
+input CreateAboutmeInput {
+  name: String!
   language: Language!
 }
 
@@ -91,11 +106,6 @@ input UpdateAboutmeInput {
   name: String
   language: Language
   id: Int!
-}
-
-input CreateAboutmeInput {
-  name: String!
-  language: Language!
 }
 
 input CreateProjectInput {

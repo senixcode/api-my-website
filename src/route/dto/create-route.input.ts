@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { Language } from 'src/Language';
 
 @InputType()
-export class createRouteInput {
+export class CreateRouteInput {
   @Field()
   path: string;
 

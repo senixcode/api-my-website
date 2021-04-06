@@ -21,8 +21,10 @@ export class ProjectService {
     return this.projectRepository.save(newRecord);
   }
   async parseTopic(project: Project): Promise<Project> {
-    const idsTopics = JSON.parse(project.topics);
-    project.topicsParse = await this.topicsService.parseTopics(idsTopics);
+    if (project.topics) {
+      const idsTopics = JSON.parse(project.topics);
+      project.topicsParse = await this.topicsService.parseTopics(idsTopics);
+    }
     return project;
   }
 
@@ -35,8 +37,11 @@ export class ProjectService {
   }
 
   async parseLink(project: Project): Promise<Project> {
-    const idsTopics = JSON.parse(project.links);
-    project.linksParse = await this.linkService.parseLinks(idsTopics);
+    if(project.links){
+
+      const idsTopics = JSON.parse(project.links);
+      project.linksParse = await this.linkService.parseLinks(idsTopics);
+    }
     return project;
   }
 
@@ -49,9 +54,11 @@ export class ProjectService {
   }
 
   async parseDescription(project: Project): Promise<Project> {
-    const parseDescriptions: string[] = project.description.split('.');
-    parseDescriptions.pop();
-    project.descriptionParse = parseDescriptions;
+    if(project.description && project.description.length > 1){
+      const parseDescriptions: string[] = project.description.split('.');
+      parseDescriptions.pop();
+      project.descriptionParse = parseDescriptions;
+    }
     return project;
   }
 
