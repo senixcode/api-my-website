@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { Language } from 'src/enums/Language';
+import { Language } from '../../enums/Language';
 
 @InputType()
 export class CreateRouteInput {

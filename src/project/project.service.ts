@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Language } from 'src/enums/Language';
+import { Language } from '../enums/Language';
 import { LinksService } from 'src/links/links.service';
 import { TopicsService } from 'src/topics/topics.service';
 import { Equal, Repository } from 'typeorm';

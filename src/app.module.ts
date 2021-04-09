@@ -18,7 +18,7 @@ import { join } from 'path';
       type: 'sqlite',
       database: 'db.sqlite3',
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
     }),
     RouteModule,
     AboutmeModule,

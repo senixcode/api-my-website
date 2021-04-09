@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { CategoryLink } from '../../enums/CategoryLink';
 @InputType()
 export class CreateLinkInput {
   @Field()
@@ -9,4 +10,7 @@ export class CreateLinkInput {
 
   @Field({nullable:true})
   icon?: string;
+
+  @Field(type => CategoryLink,{ nullable: true})
+  category?: CategoryLink;
 }

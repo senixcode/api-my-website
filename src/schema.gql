@@ -27,6 +27,14 @@ type Link {
   name: String!
   href: String!
   icon: String
+  category: CategoryLink!
+}
+
+"""selected category link"""
+enum CategoryLink {
+  VIDEO
+  IMAGE
+  ICON
 }
 
 type Topic {
@@ -143,11 +151,13 @@ input CreateLinkInput {
   name: String!
   href: String!
   icon: String
+  category: CategoryLink
 }
 
 input UpdateLinkInput {
   name: String
   href: String
   icon: String
+  category: CategoryLink
   id: Int!
 }

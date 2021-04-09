@@ -3,7 +3,7 @@ import { ProjectService } from './project.service';
 import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
-import { Language } from 'src/enums/Language';
+import { Language } from '../enums/Language';
 
 @Resolver(() => Project)
 export class ProjectResolver {

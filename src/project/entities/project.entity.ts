@@ -1,8 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Language } from 'src/enums/Language';
-import { Link } from 'src/links/entities/link.entity';
-import { Topic } from 'src/topics/entities/topic.entity';
+import { Language } from '../../enums/Language';
+import { Link } from '../../links/entities/link.entity';
+import { Topic } from '../../topics/entities/topic.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { CategoryLink } from '../../enums/CategoryLink';
 
 @Entity()
 @ObjectType()

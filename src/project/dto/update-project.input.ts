@@ -1,6 +1,6 @@
 import { CreateProjectInput } from './create-project.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
-import { Language } from 'src/enums/Language';
+import { Language } from '../../enums/Language';
 
 @InputType()
 export class UpdateProjectInput extends PartialType(CreateProjectInput) {
