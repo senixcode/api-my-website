@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Language } from 'src/Language';
+import { Language } from 'src/enums/Language';
 import { Equal, Repository } from 'typeorm';
 import { CreateRouteInput } from './dto/create-route.input';
 import { UpdateRouteInput } from './dto/update-route.input';

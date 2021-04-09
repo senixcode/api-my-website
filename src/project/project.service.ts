@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Language } from 'src/Language';
+import { Language } from 'src/enums/Language';
 import { LinksService } from 'src/links/links.service';
 import { TopicsService } from 'src/topics/topics.service';
 import { Equal, Repository } from 'typeorm';
@@ -80,6 +80,14 @@ export class ProjectService {
 
   async findOne(id: number): Promise<Project> {
     let project = await this.projectRepository.findOneOrFail(id);
+    project = await this.parseTopic(project);
+    project = await this.parseLink(project);
+    project = await this.parseDescription(project);
+    return project;
+  }
+
+  async findOneByTitleSeo(titleSeo:string,  language?: Language): Promise<Project> {
+    let project = await this.projectRepository.findOne({ where: {titleSeo, language}});
     project = await this.parseTopic(project);
     project = await this.parseLink(project);
     project = await this.parseDescription(project);

@@ -3,7 +3,7 @@ import { AboutmeService } from './aboutme.service';
 import { Aboutme } from './entities/aboutme.entity';
 import { CreateAboutmeInput } from './dto/create-aboutme.input';
 import { UpdateAboutmeInput } from './dto/update-aboutme.input';
-import { Language } from 'src/Language';
+import { Language } from 'src/enums/Language';
 import { truncate } from 'node:fs';
 
 @Resolver(() => Aboutme)

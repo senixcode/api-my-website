@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Language } from 'src/Language';
+import { Language } from 'src/enums/Language';
 import { Equal, Repository } from 'typeorm';
 import { CreateAboutmeInput } from './dto/create-aboutme.input';
 import { UpdateAboutmeInput } from './dto/update-aboutme.input';

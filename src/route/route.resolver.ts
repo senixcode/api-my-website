@@ -1,5 +1,5 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Language } from 'src/Language';
+import { Language } from 'src/enums/Language';
 import { CreateRouteInput } from './dto/create-route.input';
 import { UpdateRouteInput } from './dto/update-route.input';
 import { Route } from './entities/route.entity';

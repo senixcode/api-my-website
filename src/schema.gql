@@ -57,6 +57,7 @@ type Query {
   aboutMeFindByLanguage(all: Boolean, language: Language): [Aboutme!]!
   projects: [Project!]!
   project(id: Int!): Project!
+  projectFindByTitleSeo(language: Language, titleSeo: String!): Project!
   projectFinByLanguage(all: Boolean, language: Language): [Project!]!
   topics: [Topic!]!
   topic(id: Int!): Topic!
