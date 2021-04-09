@@ -25,4 +25,6 @@ export class Link {
   @Field(type => CategoryLink)
   category: CategoryLink;
 
+  @Field()
+  hrefCategory:string;
 }

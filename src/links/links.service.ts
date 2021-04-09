@@ -7,7 +7,7 @@ import { Link } from './entities/link.entity';
 
 @Injectable()
 export class LinksService {
- constructor(
+  constructor(
     @InjectRepository(Link) private LinkRepository: Repository<Link>,
   ) {}
   create(createLinkInput: CreateLinkInput) {
@@ -15,12 +15,27 @@ export class LinksService {
     return this.LinkRepository.save(newLink);
   }
 
-  findAll(): Promise<Link[]> {
-    return this.LinkRepository.find();
+  UpdatePropertyHrefCategory(link: Link): Link {
+    if (link.href && link.category) {
+      link.hrefCategory = `${link.href} ${link.category}`;
+    }
+    return link;
+  }
+  
+  ListUpdateObject(links: Array<Link>): Array<Link> {
+    return links.map((link) => this.UpdatePropertyHrefCategory(link));
   }
 
-  findOne(id: number): Promise<Link> {
-    return this.LinkRepository.findOneOrFail(id);
+  async findAll(): Promise<Link[]> {
+    let links: Link[] = await this.LinkRepository.find();
+    links = this.ListUpdateObject(links);
+    return links;
+  }
+
+  async findOne(id: number): Promise<Link> {
+    let link: Link = await this.LinkRepository.findOneOrFail(id);
+    link = this.UpdatePropertyHrefCategory(link);
+    return link;
   }
 
   async parseLinks(ids: Array<number>): Promise<Link[]> {
@@ -42,5 +57,5 @@ export class LinksService {
     const Link = await this.findOne(id);
     await this.LinkRepository.delete(id);
     return Link;
-  } 
+  }
 }

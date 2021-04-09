@@ -28,6 +28,7 @@ type Link {
   href: String!
   icon: String
   category: CategoryLink!
+  hrefCategory: String!
 }
 
 """selected category link"""
