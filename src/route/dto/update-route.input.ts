@@ -1,4 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
+import { Language } from '../../enums/Language';
 
 @InputType()
 export class UpdateRouteInput {
@@ -14,6 +15,6 @@ export class UpdateRouteInput {
   @Field({ nullable: true })
   description?: string;
 
-  @Field({ nullable: true })
-  language?: string;
+  @Field(type => Language,{ nullable: true })
+  language?: Language;
 }

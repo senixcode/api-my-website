@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Language } from '../../enums/Language';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -21,6 +22,6 @@ export class Route {
   description?: string;
 
   @Column()
-  @Field()
-  language: string;
+  @Field(type => Language)
+  language: Language;
 }

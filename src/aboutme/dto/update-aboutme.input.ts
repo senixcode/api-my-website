@@ -1,6 +1,6 @@
 import { CreateAboutmeInput } from './create-aboutme.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
-import { Language } from 'src/Language';
+import { Language } from '../../enums/Language';
 
 @InputType()
 export class UpdateAboutmeInput extends PartialType(CreateAboutmeInput) {

@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { CategoryLink } from 'src/enums/CategoryLink';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -19,4 +20,11 @@ export class Link {
   @Column({ nullable: true })
   @Field({ nullable: true })
   icon?: string;
+
+  @Column()
+  @Field(type => CategoryLink)
+  category: CategoryLink;
+
+  @Field()
+  hrefCategory:string;
 }

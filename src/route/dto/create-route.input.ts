@@ -1,8 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsAlpha } from 'class-validator';
+import { Language } from '../../enums/Language';
 
 @InputType()
-export class createRouteInput {
+export class CreateRouteInput {
   @Field()
   path: string;
 
@@ -15,6 +15,6 @@ export class createRouteInput {
   description?: string;
 
   // @IsAlpha()
-  @Field()
-  language: string;
+  @Field(type => Language)
+  language: Language;
 }

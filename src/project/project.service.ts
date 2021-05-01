@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Language } from 'src/Language';
+import { Language } from '../enums/Language';
 import { LinksService } from 'src/links/links.service';
 import { TopicsService } from 'src/topics/topics.service';
 import { Equal, Repository } from 'typeorm';
@@ -21,8 +21,10 @@ export class ProjectService {
     return this.projectRepository.save(newRecord);
   }
   async parseTopic(project: Project): Promise<Project> {
-    const idsTopics = JSON.parse(project.topics);
-    project.topicsParse = await this.topicsService.parseTopics(idsTopics);
+    if (project.topics) {
+      const idsTopics = JSON.parse(project.topics);
+      project.topicsParse = await this.topicsService.parseTopics(idsTopics);
+    }
     return project;
   }
 
@@ -35,8 +37,11 @@ export class ProjectService {
   }
 
   async parseLink(project: Project): Promise<Project> {
-    const idsTopics = JSON.parse(project.links);
-    project.linksParse = await this.linkService.parseLinks(idsTopics);
+    if(project.links){
+
+      const idsTopics = JSON.parse(project.links);
+      project.linksParse = await this.linkService.parseLinks(idsTopics);
+    }
     return project;
   }
 
@@ -48,10 +53,27 @@ export class ProjectService {
     );
   }
 
+  async parseDescription(project: Project): Promise<Project> {
+    if(project.description && project.description.length > 1){
+      const parseDescriptions: string[] = project.description.match(/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g);
+      project.descriptionParse = parseDescriptions;
+    }
+    return project;
+  }
+
+  async parseDescriptions(projects: Project[]): Promise<Project[]> {
+    return await Promise.all(
+      projects.map(async (project: Project) => {
+        return await this.parseDescription(project);
+      }),
+    );
+  }
+
   async findAll(): Promise<Project[]> {
     let projects = await this.projectRepository.find();
     projects = await this.parseTopics(projects);
     projects = await this.parseLinks(projects);
+    projects = await this.parseDescriptions(projects);
     return projects;
   }
 
@@ -59,13 +81,32 @@ export class ProjectService {
     let project = await this.projectRepository.findOneOrFail(id);
     project = await this.parseTopic(project);
     project = await this.parseLink(project);
+    project = await this.parseDescription(project);
     return project;
   }
 
-  findByLanguage(language: Language): Promise<Project[]> {
-    return this.projectRepository.find({
-      language: Equal(language),
-    });
+  async findOneByTitleSeo(titleSeo:string,  language?: Language): Promise<Project> {
+    let project = await this.projectRepository.findOne({ where: {titleSeo, language}});
+    project = await this.parseTopic(project);
+    project = await this.parseLink(project);
+    project = await this.parseDescription(project);
+    return project;
+  }
+
+  async findByLanguage(
+    language?: Language,
+    all: boolean = false,
+  ): Promise<Project[]> {
+    if (language) {
+      let projects = await this.projectRepository.find({
+        language: Equal(language),
+      });
+      projects = await this.parseTopics(projects);
+      projects = await this.parseLinks(projects);
+      projects = await this.parseDescriptions(projects);
+      return projects;
+    }
+    if (all) return this.findAll();
   }
 
   async update(

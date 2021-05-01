@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { Language } from 'src/Language';
+import { Language } from '../../enums/Language';
 
 @InputType()
 export class CreateProjectInput {

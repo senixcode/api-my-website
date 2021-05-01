@@ -3,7 +3,7 @@ import { ProjectService } from './project.service';
 import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
-import { Language } from 'src/Language';
+import { Language } from '../enums/Language';
 
 @Resolver(() => Project)
 export class ProjectResolver {
@@ -26,11 +26,22 @@ export class ProjectResolver {
     return await this.projectService.findOne(id);
   }
 
+  @Query(() => Project, { name: 'projectFindByTitleSeo' })
+  async findOneByTitleSeo(
+    @Args('titleSeo', { type: () => String }) titleSeo: string,
+    @Args('language', { type: () => Language, nullable: true })
+    language?: Language,
+  ) {
+    return await this.projectService.findOneByTitleSeo(titleSeo, language);
+  }
+
   @Query(() => [Project], { name: 'projectFinByLanguage' })
   findByLanguage(
-    @Args('language', { type: () => Language }) language: Language,
+    @Args('language', { type: () => Language, nullable: true })
+    language?: Language,
+    @Args('all', { type: () => Boolean, nullable: true }) all?: boolean,
   ) {
-    return this.projectService.findByLanguage(language);
+    return this.projectService.findByLanguage(language, all);
   }
 
   @Mutation(() => Project)

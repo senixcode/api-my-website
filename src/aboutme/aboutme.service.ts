@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Language } from 'src/Language';
+import { Language } from '../enums/Language';
 import { Equal, Repository } from 'typeorm';
 import { CreateAboutmeInput } from './dto/create-aboutme.input';
 import { UpdateAboutmeInput } from './dto/update-aboutme.input';
@@ -24,10 +24,13 @@ export class AboutmeService {
     return this.aboutmeRepository.findOneOrFail(id);
   }
 
-  findByLanguage(language: Language): Promise<Aboutme[]> {
-    return this.aboutmeRepository.find({
-      language: Equal(language),
-    });
+  findByLanguage(language?: Language, all: boolean = false): Promise<Aboutme[]> {
+    if(language){
+      return this.aboutmeRepository.find({
+        language: Equal(language)
+      });
+    }
+    if(all) return this.findAll()
   }
 
   async update(updateAboutmeInput: UpdateAboutmeInput) {

@@ -1,0 +1,164 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Route {
+  id: Int!
+  path: String!
+  title: String!
+  description: String
+  language: Language!
+}
+
+"""selected languages"""
+enum Language {
+  EN
+  ES
+}
+
+type Aboutme {
+  id: Int!
+  name: String!
+  language: Language!
+}
+
+type Link {
+  id: Int!
+  name: String!
+  href: String!
+  icon: String
+  category: CategoryLink!
+  hrefCategory: String!
+}
+
+"""selected category link"""
+enum CategoryLink {
+  VIDEO
+  IMAGE
+  ICON
+}
+
+type Topic {
+  id: Int!
+  name: String!
+}
+
+type Project {
+  id: Int!
+  title: String!
+  titleSeo: String!
+  summary: String!
+  description: String
+  topics: String
+  descriptionParse: [String]
+  topicsParse: [Topic]
+  linksParse: [Link]
+  links: String
+  language: Language!
+}
+
+type Query {
+  routes: [Route!]!
+  route(id: Int!): Route!
+  routeFindByLanguage(all: Boolean, language: Language): [Route!]!
+  allAboutMe: [Aboutme!]!
+  aboutMe(id: Int!): Aboutme!
+  aboutMeFindByLanguage(all: Boolean, language: Language): [Aboutme!]!
+  projects: [Project!]!
+  project(id: Int!): Project!
+  projectFindByTitleSeo(language: Language, titleSeo: String!): Project!
+  projectFinByLanguage(all: Boolean, language: Language): [Project!]!
+  topics: [Topic!]!
+  topic(id: Int!): Topic!
+  links: [Link!]!
+  link(id: Int!): Link!
+}
+
+type Mutation {
+  createRoute(createRouteInput: CreateRouteInput!): Route!
+  updateRoute(updateRouteInput: UpdateRouteInput!): Route!
+  removeRoute(id: Int!): Route!
+  createAboutme(createAboutmeInput: CreateAboutmeInput!): Aboutme!
+  updateAboutme(updateAboutmeInput: UpdateAboutmeInput!): Aboutme!
+  removeAboutme(id: Int!): Aboutme!
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): Project!
+  removeProject(id: Int!): Project!
+  createTopic(createTopicInput: CreateTopicInput!): Topic!
+  updateTopic(updateTopicInput: UpdateTopicInput!): Topic!
+  removeTopic(id: Int!): Topic!
+  createLink(createLinkInput: CreateLinkInput!): Link!
+  updateLink(updateLinkInput: UpdateLinkInput!): Link!
+  removeLink(id: Int!): Link!
+}
+
+input CreateRouteInput {
+  path: String!
+  title: String!
+  description: String
+  language: Language!
+}
+
+input UpdateRouteInput {
+  id: Int!
+  path: String
+  title: String
+  description: String
+  language: Language
+}
+
+input CreateAboutmeInput {
+  name: String!
+  language: Language!
+}
+
+input UpdateAboutmeInput {
+  name: String
+  language: Language
+  id: Int!
+}
+
+input CreateProjectInput {
+  title: String!
+  titleSeo: String!
+  summary: String!
+  description: String
+  topics: String
+  links: String
+  language: Language!
+}
+
+input UpdateProjectInput {
+  title: String
+  titleSeo: String
+  summary: String
+  description: String
+  topics: String
+  links: String
+  language: Language
+  id: Int!
+}
+
+input CreateTopicInput {
+  name: String!
+}
+
+input UpdateTopicInput {
+  name: String!
+  id: Int!
+}
+
+input CreateLinkInput {
+  name: String!
+  href: String!
+  icon: String
+  category: CategoryLink
+}
+
+input UpdateLinkInput {
+  name: String
+  href: String
+  icon: String
+  category: CategoryLink
+  id: Int!
+}
