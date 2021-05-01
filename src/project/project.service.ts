@@ -55,8 +55,7 @@ export class ProjectService {
 
   async parseDescription(project: Project): Promise<Project> {
     if(project.description && project.description.length > 1){
-      const parseDescriptions: string[] = project.description.split('.');
-      parseDescriptions.pop();
+      const parseDescriptions: string[] = project.description.match(/([^\.!\?]+[\.!\?]+)|([^\.!\?]+$)/g);
       project.descriptionParse = parseDescriptions;
     }
     return project;
