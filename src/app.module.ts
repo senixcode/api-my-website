@@ -11,8 +11,8 @@ import { join } from 'path';
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      debug: true,
-      playground: true,
+      debug: false,
+      playground: false,
     }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
