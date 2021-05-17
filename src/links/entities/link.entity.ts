@@ -1,13 +1,14 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, ID, InputType } from '@nestjs/graphql';
 import { CategoryLink } from 'src/enums/CategoryLink';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
+@InputType('link')
 export class Link {
-  @PrimaryGeneratedColumn()
-  @Field((type) => Int)
-  id: number;
+  @ObjectIdColumn()
+  @Field((type) => ID)
+  _id: ObjectID;
 
   @Column()
   @Field()
@@ -22,9 +23,23 @@ export class Link {
   icon?: string;
 
   @Column()
-  @Field(type => CategoryLink)
+  @Field((type) => CategoryLink)
   category: CategoryLink;
 
   @Field()
-  hrefCategory:string;
+  hrefCategory: string;
+
+  constructor(
+    _id: ObjectID,
+    name: string,
+    href: string,
+    icon = '',
+    category: CategoryLink,
+  ) {
+    this._id = _id;
+    this.name = name;
+    this.href = href;
+    this.icon = icon;
+    this.category = category;
+  }
 }

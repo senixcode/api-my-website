@@ -1,8 +1,9 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { TopicsService } from './topics.service';
 import { Topic } from './entities/topic.entity';
 import { CreateTopicInput } from './dto/create-topic.input';
 import { UpdateTopicInput } from './dto/update-topic.input';
+import { ObjectID } from 'typeorm';
 
 @Resolver(() => Topic)
 export class TopicsResolver {
@@ -19,7 +20,7 @@ export class TopicsResolver {
   }
 
   @Query(() => Topic, { name: 'topic' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => ID }) id: ObjectID) {
     return this.topicsService.findOne(id);
   }
 
@@ -29,7 +30,7 @@ export class TopicsResolver {
   }
 
   @Mutation(() => Topic)
-  removeTopic(@Args('id', { type: () => Int }) id: number) {
+  removeTopic(@Args('id', { type: () => ID }) id: ObjectID) {
     return this.topicsService.remove(id);
   }
 }

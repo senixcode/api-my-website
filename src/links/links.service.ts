@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ObjectID, Repository } from 'typeorm';
 import { CreateLinkInput } from './dto/create-link.input';
 import { UpdateLinkInput } from './dto/update-link.input';
 import { Link } from './entities/link.entity';
@@ -21,7 +21,7 @@ export class LinksService {
     }
     return link;
   }
-  
+
   ListUpdateObject(links: Array<Link>): Array<Link> {
     return links.map((link) => this.UpdatePropertyHrefCategory(link));
   }
@@ -32,20 +32,27 @@ export class LinksService {
     return links;
   }
 
-  async findOne(id: number): Promise<Link> {
+  async findOne(id: ObjectID | string): Promise<Link> {
     let link: Link = await this.LinkRepository.findOneOrFail(id);
     link = this.UpdatePropertyHrefCategory(link);
     return link;
   }
-
-  async parseLinks(ids: Array<number>): Promise<Link[]> {
-    let Links: Link[] = [];
-    for (const id of ids) {
-      let Link: Link = await this.findOne(id);
-      Links.push(Link);
+  async findOneByIds(ids: string[]): Promise<Link[]> {
+    let links: Link[] = [];
+    for (let id of ids) {
+      let link: Link = await this.findOne(id);
+      links.push(link);
     }
-    return Links;
+    return links;
   }
+  // async parseLinks(ids: Array<number>): Promise<Link[]> {
+  //   let Links: Link[] = [];
+  //   for (const id of ids) {
+  //     let Link: Link = await this.findOne(id);
+  //     Links.push(Link);
+  //   }
+  //   return Links;
+  // }
 
   async update(
     updateLinkInput: UpdateLinkInput,
@@ -53,7 +60,7 @@ export class LinksService {
     return await this.LinkRepository.save(updateLinkInput);
   }
 
-  async remove(id: number): Promise<Link> {
+  async remove(id: ObjectID): Promise<Link> {
     const Link = await this.findOne(id);
     await this.LinkRepository.delete(id);
     return Link;

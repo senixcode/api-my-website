@@ -8,9 +8,9 @@ export class CreateLinkInput {
   @Field()
   href: string;
 
-  @Field({nullable:true})
+  @Field({ nullable: true })
   icon?: string;
 
-  @Field(type => CategoryLink,{ nullable: true})
+  @Field((type) => CategoryLink, { nullable: true })
   category?: CategoryLink;
 }

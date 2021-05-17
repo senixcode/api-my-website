@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ObjectID, Repository } from 'typeorm';
 import { CreateTopicInput } from './dto/create-topic.input';
 import { UpdateTopicInput } from './dto/update-topic.input';
 import { Topic } from './entities/topic.entity';
@@ -8,8 +8,8 @@ import { Topic } from './entities/topic.entity';
 @Injectable()
 export class TopicsService {
   constructor(
-    @InjectRepository(Topic) private topicRepository: Repository<Topic>,
-  ) {}
+    @InjectRepository(Topic) private topicRepository: Repository<Topic>
+  ) { }
   create(createTopicInput: CreateTopicInput) {
     const newTopic = this.topicRepository.create(createTopicInput);
     return this.topicRepository.save(newTopic);
@@ -19,14 +19,13 @@ export class TopicsService {
     return this.topicRepository.find();
   }
 
-  findOne(id: number): Promise<Topic> {
+  findOne(id: ObjectID | string): Promise<Topic> {
     return this.topicRepository.findOneOrFail(id);
   }
-
-  async parseTopics(ids: Array<number>): Promise<Topic[]> {
+  async findOneByIds(ids: string[]): Promise<Topic[]> {
     let topics: Topic[] = [];
     for (const id of ids) {
-      let topic: Topic = await this.findOne(id);
+      const topic: Topic = await this.findOne(id);
       topics.push(topic);
     }
     return topics;
@@ -38,7 +37,7 @@ export class TopicsService {
     return await this.topicRepository.save(updateTopicInput);
   }
 
-  async remove(id: number): Promise<Topic> {
+  async remove(id: ObjectID): Promise<Topic> {
     const topic = await this.findOne(id);
     await this.topicRepository.delete(id);
     return topic;

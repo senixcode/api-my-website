@@ -1,11 +1,12 @@
 import { CreateLinkInput } from './create-link.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
 import { CategoryLink } from 'src/enums/CategoryLink';
+import { ObjectID } from 'typeorm';
 
 @InputType()
 export class UpdateLinkInput extends PartialType(CreateLinkInput) {
-  @Field((type) => Int)
-  id: number;
+  @Field(() => ID)
+  id: ObjectID;
 
   @Field({ nullable: true })
   name?: string;
@@ -16,6 +17,6 @@ export class UpdateLinkInput extends PartialType(CreateLinkInput) {
   @Field({ nullable: true })
   icon?: string;
 
-   @Field(type => CategoryLink,{ nullable: true})
+  @Field((type) => CategoryLink, { nullable: true })
   category?: CategoryLink;
 }

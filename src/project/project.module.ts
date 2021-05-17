@@ -7,7 +7,7 @@ import { TopicsModule } from 'src/topics/topics.module';
 import { LinksModule } from 'src/links/links.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project]),TopicsModule,LinksModule],
+  imports: [TypeOrmModule.forFeature([Project]), TopicsModule, LinksModule],
   providers: [ProjectResolver, ProjectService],
 })
 export class ProjectModule {}

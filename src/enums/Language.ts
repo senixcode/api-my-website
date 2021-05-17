@@ -1,9 +1,9 @@
-import {registerEnumType} from '@nestjs/graphql'
+import { registerEnumType } from '@nestjs/graphql';
 export enum Language {
-    EN = "en",
-    ES = "es"
+  EN = 'en',
+  ES = 'es',
 }
-registerEnumType(Language,{
-    name:"Language",
-    description:"selected languages"
-})
+registerEnumType(Language, {
+  name: 'Language',
+  description: 'selected languages',
+});

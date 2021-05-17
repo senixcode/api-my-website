@@ -1,16 +1,15 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Language } from '../../enums/Language';
 import { Link } from '../../links/entities/link.entity';
 import { Topic } from '../../topics/entities/topic.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { CategoryLink } from '../../enums/CategoryLink';
+import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
 export class Project {
-  @PrimaryGeneratedColumn()
-  @Field((type) => Int)
-  id: number;
+  @ObjectIdColumn()
+  @Field((type) => ID)
+  _id: ObjectID;
 
   @Column()
   @Field()
@@ -24,29 +23,19 @@ export class Project {
   @Field()
   summary: string;
 
-  @Column({ nullable: true })
-  @Field({ nullable: true })
-  description?: string;
+  @Column()
+  @Field((type) => String)
+  description: string;
 
-  @Column({ nullable: true })
-  @Field({ nullable: true })
-  topics?: string;
+  @Column(type => Topic)
+  @Field((type) => [Topic])
+  topics?: Topic[];
 
-
-  @Field(type => [String],{ nullable: "itemsAndList" })
-   descriptionParse?: string[];
-
-  @Field(type => [Topic],{ nullable: "itemsAndList" })
-   topicsParse?: Topic[];
-
-  @Field(type => [Link],{ nullable: "itemsAndList" })
-   linksParse?: Link[];
-
-  @Column({ nullable: true })
-  @Field({ nullable: true })
-  links?: string;
+  @Column(type => Link)
+  @Field((type) => [Link], { nullable: 'itemsAndList' })
+  links?: Link[];
 
   @Column()
-  @Field(type => Language)
+  @Field((type) => Language)
   language: Language;
 }

@@ -1,4 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
+import { Link } from 'src/links/entities/link.entity';
+import { Topic } from 'src/topics/entities/topic.entity';
 import { Language } from '../../enums/Language';
 
 @InputType()
@@ -12,15 +14,15 @@ export class CreateProjectInput {
   @Field()
   summary: string;
 
-  @Field({ nullable: true })
+  @Field((type) => String)
   description?: string;
 
-  @Field({ nullable: true })
-  topics?: string;
+  @Field((type) => [String])
+  topics: string[];
 
-  @Field({ nullable: true })
-  links?: string;
+  @Field((type) => [String])
+  links: string[];
 
-  @Field(type => Language)
+  @Field((type) => Language)
   language: Language;
 }

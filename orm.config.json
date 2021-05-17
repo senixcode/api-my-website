@@ -1,0 +1,9 @@
+{
+  "type": "mongodb",
+  "url": "nest_db_config",
+  "entities": [],
+  "synchronize": true,
+  "useNewUrlParser": true,
+  "useUnifiedTopology": true,
+  "logging": true
+}

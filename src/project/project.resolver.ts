@@ -1,19 +1,21 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID, ResolveProperty, Root, Parent, ResolveField } from '@nestjs/graphql';
 import { ProjectService } from './project.service';
 import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
 import { Language } from '../enums/Language';
+import { ObjectID } from 'typeorm';
+
 
 @Resolver(() => Project)
 export class ProjectResolver {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(private readonly projectService: ProjectService) { }
 
   @Mutation(() => Project)
-  createProject(
+  async createProject(
     @Args('createProjectInput') createProjectInput: CreateProjectInput,
   ) {
-    return this.projectService.create(createProjectInput);
+    return await this.projectService.create(createProjectInput);
   }
 
   @Query(() => [Project], { name: 'projects' })
@@ -22,7 +24,7 @@ export class ProjectResolver {
   }
 
   @Query(() => Project, { name: 'project' })
-  async findOne(@Args('id', { type: () => Int }) id: number) {
+  async findOne(@Args('id', { type: () => ID }) id: ObjectID) {
     return await this.projectService.findOne(id);
   }
 
@@ -52,7 +54,13 @@ export class ProjectResolver {
   }
 
   @Mutation(() => Project)
-  removeProject(@Args('id', { type: () => Int }) id: number) {
+  removeProject(@Args('id', { type: () => ID }) id: ObjectID) {
     return this.projectService.remove(id);
   }
+
+  // @ResolveField()
+  // projects(@Parent() project: Project) {
+  //   console.log(project)
+  //   return project
+  // }
 }

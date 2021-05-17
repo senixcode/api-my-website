@@ -1,8 +1,9 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { LinksService } from './links.service';
 import { Link } from './entities/link.entity';
 import { CreateLinkInput } from './dto/create-link.input';
 import { UpdateLinkInput } from './dto/update-link.input';
+import { ObjectID } from 'typeorm';
 
 @Resolver(() => Link)
 export class LinksResolver {
@@ -19,7 +20,7 @@ export class LinksResolver {
   }
 
   @Query(() => Link, { name: 'link' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => ID }) id: ObjectID) {
     return this.linksService.findOne(id);
   }
 
@@ -29,7 +30,7 @@ export class LinksResolver {
   }
 
   @Mutation(() => Link)
-  removeLink(@Args('id', { type: () => Int }) id: number) {
+  removeLink(@Args('id', { type: () => ID }) id: ObjectID) {
     return this.linksService.remove(id);
   }
 }

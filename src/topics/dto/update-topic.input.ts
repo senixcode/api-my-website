@@ -1,11 +1,12 @@
 import { CreateTopicInput } from './create-topic.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
+import { ObjectID } from 'typeorm';
 
 @InputType()
 export class UpdateTopicInput extends PartialType(CreateTopicInput) {
-  @Field(() => Int)
-  id: number;
-  
+  @Field((type) => ID)
+  id: ObjectID;
+
   @Field()
-  name:string
+  name: string;
 }

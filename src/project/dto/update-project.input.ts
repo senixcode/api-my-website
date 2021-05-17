@@ -1,11 +1,14 @@
 import { CreateProjectInput } from './create-project.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
 import { Language } from '../../enums/Language';
+import { Topic } from 'src/topics/entities/topic.entity';
+import { Link } from 'src/links/entities/link.entity';
+import { ObjectID } from 'typeorm';
 
 @InputType()
 export class UpdateProjectInput extends PartialType(CreateProjectInput) {
-  @Field(() => Int)
-  id: number;
+  @Field((type) => ID)
+  id: ObjectID;
 
   @Field({ nullable: true })
   title?: string;
@@ -16,14 +19,14 @@ export class UpdateProjectInput extends PartialType(CreateProjectInput) {
   @Field({ nullable: true })
   summary?: string;
 
-  @Field({ nullable: true })
+  @Field((type) => String, { nullable: null })
   description?: string;
 
-  @Field({ nullable: true })
-  topics?: string;
+  @Field((type) => [String], { nullable: 'itemsAndList' })
+  topics?: string[];
 
-  @Field({ nullable: true })
-  links?: string;
+  @Field((type) => [String], { nullable: 'itemsAndList' })
+  links?: string[];
 
   @Field((type) => Language, { nullable: true })
   language?: Language;
